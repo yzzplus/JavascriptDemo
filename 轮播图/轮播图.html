@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播图</title>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding: 0px;
+			text-decoration: none;
+		}
+		#box{
+			width: 600px;
+			height: 400px;
+			margin: 100px;
+			overflow: hidden;
+			position: relative;
+			border: 3px solid gray;
+		}
+		#imgs{
+			width: 600px;
+			height: 400px;
+			z-index: 1;
+			position: absolute;
+		}
+		#imgs img{
+			width: 600px;
+			height: 400px;
+		}
+		#btn{
+			z-index: 2;
+			position: absolute;
+			left: 280px;
+			bottom: 20px;
+			height: 10px;
+			width: 100px;
+		}
+		#btn span{
+			float: left;
+			margin-right: 5px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			border: 1px solid #FFF;
+			background:#333;
+			cursor: pointer;
+		}
+		#btn .on{
+			background: orangered;
+		}
+		.arrow{
+			position: absolute;
+			z-index: 2;
+			top: 180px;
+			width: 40px;
+			height: 40px;
+			line-height: 40px;
+			font-weight: bold;
+			font-size: 36px;
+			text-align: center;
+			color: white;
+            background-color: #4F4F4F;
+			cursor: pointer;
+			display: none;
+		}
+		#prev{
+			left: 20px;
+		}
+		#next{
+			right: 20px;
+		}
+		.arrow:hover{
+			background: black;
+		}
+		#box:hover .arrow{
+			display: block;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload = function () {
+			var oBox = document.getElementById('box');
+			var oImg = document.getElementsByTagName('img')[0];
+			var aBtn = document.getElementById('btn').getElementsByTagName('span');
+			var prev = document.getElementById('prev');
+			var next = document.getElementById('next');
+			var arrImg = ['img/1.jpg','img/2.jpg','img/3.jpg','img/4.jpg','img/1.png'];
+			var timer;
+			var num = 0;
+			
+			//上一张、下一张鼠标效果
+			prev.onclick = left;
+			next.onclick = right;
+			//上一张
+			function left(){
+				num--;
+				if(num<0){
+					num = 4;
+				}
+				oImg.src = arrImg[num];
+				
+				for(var i=0;i<aBtn.length;i++){
+					aBtn[i].className = '';
+				}
+				aBtn[num].className = 'on';
+			};
+			//下一张
+			function right(){
+				num++;
+				if(num>4){
+					num = 0;
+				}
+				oImg.src = arrImg[num];	
+
+				for(var i=0;i<aBtn.length;i++){
+					aBtn[i].className = '';
+				}
+				aBtn[num].className = 'on';
+			};
+			
+			//页面初始化，自动轮播
+			timer = setInterval(function(){
+				right();
+			},1000);
+			//鼠标移出，开始轮播
+			imgs.onmouseout = function(){
+				timer = setInterval(function(){
+					right();
+				},1000);
+			};
+			//鼠标移入，开始轮播
+			imgs.onmouseover = function(){
+				clearInterval(timer);
+			}
+		};
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div id="imgs">
+			<img src="img/1.jpg">
+		</div>
+		<div id="btn">
+			<span class="on"></span>
+			<span></span>
+			<span></span>
+			<span></span>
+			<span></span>
+		</div>
+		<a href="javascript:;" id="prev" class="arrow">&lt;</a>
+		<a href="javascript:;" id="next" class="arrow">&gt;</a>
+	</div>
+</body>
+</html>
