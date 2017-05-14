@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>记事本</title>
+  <style type="text/css">
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    li{
+      list-style: none;
+      height: 30px;
+      padding-bottom: 10px;
+      padding-top:10px;
+    }
+    .box{
+      border: 1px solid lightgray;
+      width: 250px;
+      margin:50px auto;
+    }
+    .bg{
+      width: 250px;
+      height: 30px;
+      background: green;
+    }
+    .bg p{
+      color:#FFFFFF;
+      line-height: 30px;
+    }
+    .di{
+      display: inline;
+    }
+    .dis{
+      display: none;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function (){
+      var oUl = document.getElementById('list');
+      var aLi = oUl.getElementsByTagName('li');
+
+      for(var i=0;i<aLi.length;i++){
+        note(aLi[i]);
+      }
+
+      function note(li){
+        var aBtn = li.getElementsByTagName('input');
+
+        aBtn[0].onclick = function (){
+          if(aBtn[1].style.display == 'inline'){
+            alert('当前不可修改！');
+          }
+        };
+
+        aBtn[1].onclick = function (){
+          aBtn[1].style.display = 'none';
+          aBtn[2].style.display = 'inline';
+          aBtn[3].style.display = 'inline';
+        };
+
+        aBtn[2].onclick = function (){
+          var str = aBtn[0].value;
+          aBtn[0].value = str;
+          aBtn[1].style.display = 'inline';
+          aBtn[2].style.display = 'none';
+          aBtn[3].style.display = 'none';
+        };
+
+        aBtn[3].onclick = function (){
+          var str = aBtn[0].value;
+          aBtn[0].value = '';
+        };
+      }
+
+    };
+  </script>
+</head>
+<body>
+  <div class="box">
+    <div class='bg'><p>记事本</p></div>
+    <ul id='list'>
+      <li>
+        <input type="text" value="">
+        <input type="button" value="修改" class='di'>
+        <input type="button" value="保存" class="dis">
+        <input type="button" value="删除" class="dis">
+      </li>
+      <li>
+        <input type="text" value="">
+        <input type="button" value="修改" class='di'>
+        <input type="button" value="保存" class="dis">
+        <input type="button" value="删除" class="dis">
+      </li>
+      <li>
+       <input type="text" value="">
+       <input type="button" value="修改" class='di'>
+       <input type="button" value="保存" class="dis">
+       <input type="button" value="删除" class="dis">
+      </li>
+      <li>
+        <input type="text" value="">
+        <input type="button" value="修改" class='di'>
+        <input type="button" value="保存" class="dis">
+        <input type="button" value="删除" class="dis">
+      </li>
+      <li>
+        <input type="text" value="">
+        <input type="button" value="修改" class='di'>
+        <input type="button" value="保存" class="dis">
+        <input type="button" value="删除" class="dis">
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

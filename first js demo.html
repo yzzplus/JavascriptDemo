@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>first JS Demo</title>
+    <style>
+        *{
+            margin:0px;
+            padding: 0px;
+        }
+        .left{
+            width:500px;
+            float: left;
+            position: relative;
+        }
+        .right{
+            width:200px;
+            margin-right: 200px;
+            float: right;
+            margin-top: 200px;
+            border:20px solid lightgray;
+            display: none;
+        }
+        .left button{
+            position: absolute;
+            left:360px;
+            top:5px;
+            background-color: red;
+            color: #FFFFFF;
+            font-weight: bold;
+            width:100px;
+            height:40px;
+            border:0px;
+        }
+        #box{
+            width:100px;
+            height:100px;
+            border: 5px solid black;
+            margin-top: 50px;
+            margin-left: 50px;
+        }
+        .right button{
+            width:50px;
+            height:30px;
+            color: black;
+            border:0px;
+        }
+        .color{
+            margin-top:20px;
+            margin-left: 20px;
+        }
+        .wid{
+            margin-top:20px;
+            margin-left: 20px;
+        }
+        .hei{
+            margin-top:20px;
+            margin-left: 20px;
+        }
+        .control{
+            margin-top:20px;
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+        .control button{
+            background-color: #11456b;
+            color: #FFFFFF;
+        }
+        #red{
+            background-color: red;
+        }
+        #yellow{
+            background-color: yellow;
+        }
+        #blue{
+            background-color: blue;
+        }
+    </style>
+    <script>
+        window.onload=function (){
+            var setup = document.getElementById("setup");
+            var right = document.getElementById("right");
+            var yes = document.getElementById("yes");
+            var red = document.getElementById("red");
+            var box = document.getElementById("box");
+            var yellow = document.getElementById("yellow");
+            var blue = document.getElementById("blue");
+            var w2 = document.getElementById("w2");
+            var w3 = document.getElementById("w3");
+            var w4 = document.getElementById("w4");
+            var h2 = document.getElementById("h2");
+            var h3 = document.getElementById("h3");
+            var h4 = document.getElementById("h4");
+            var reset = document.getElementById("reset");
+            setup.onclick=function(){
+                right.style.display='block';
+            };
+            yes.onclick=function(){
+                right.style.display='none';
+            };
+            red.onclick=function(){
+                box.style.background='red';
+            };
+            yellow.onclick=function(){
+                box.style.background='yellow';
+            };
+            blue.onclick=function(){
+                box.style.background='blue';
+            };
+            w2.onclick=function(){
+                box.style.width='200px';
+            };
+            w3.onclick=function(){
+                box.style.width='300px';
+            };
+            w4.onclick=function(){
+                box.style.width='400px';
+            };
+            h2.onclick=function(){
+                box.style.height='200px';
+            };
+            h3.onclick=function(){
+                box.style.height='300px';
+            };
+            h4.onclick=function(){
+                box.style.height='400px';
+            };
+            reset.onclick=function(){
+                box.style.width='100px';
+                box.style.height='100px';
+                box.style.background='#FFFFFF';
+            };
+            function color(){
+                this.style.background='#cd4a48';
+            }
+            function noColor(){
+                this.style.background='lightgray';
+            };
+            w2.onmouseover=color;
+            w2.onmouseout=noColor;
+            w3.onmouseover=color;
+            w3.onmouseout=noColor;
+            w4.onmouseover=color;
+            w4.onmouseout=noColor;
+            h2.onmouseover=color;
+            h2.onmouseout=noColor;
+            h3.onmouseover=color;
+            h3.onmouseout=noColor;
+            h4.onmouseover=color;
+            h4.onmouseout=noColor;
+
+        };
+    </script>
+</head>
+<body>
+    <div class="left">
+        <h1>请为下面的div设置样式:</h1>
+        <button id="setup">点击设置</button>
+        <div id="box"></div>
+    </div>
+    <div class="right" id="right">
+        <div class="color">
+            <p>请选择背景色:</p>
+            <button id="red">红</button>
+            <button id="yellow">黄</button>
+            <button id="blue">蓝</button>
+        </div>
+        <div class="wid">
+            <p>请选择宽度(px):</p>
+            <button id="w2">200</button>
+            <button id="w3">300</button>
+            <button id="w4">400</button>
+        </div>
+        <div class="hei">
+            <p>请选择高度(px):</p>
+            <button id="h2">200</button>
+            <button id="h3">300</button>
+            <button id="h4">400</button>
+        </div>
+        <div class="control">
+            <button id="reset">恢复</button>
+            <button id="yes">确定</button>
+        </div>
+    </div>
+</body>
+</html>

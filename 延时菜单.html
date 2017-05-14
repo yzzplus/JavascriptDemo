@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>延时菜单</title>
+  <style type="text/css">
+    *{
+      margin: 0px;
+      padding: 0px;
+      font: 12px;
+      color: black;
+    }
+    li{
+      list-style: none;
+      display: inline-block;
+      text-align: center;
+    }
+    a{
+      text-decoration: none;
+    }
+    a:hover{
+      font-weight: bold;
+    }
+    #box{
+        margin-left: 50px;
+        margin-top: 50px;
+    }
+    #ul li{
+      line-height: 20px;
+      width: 70px;
+      background: orange;
+    }
+    .nav{
+      position: absolute;
+      border: 1px solid black;
+      top:80px;
+    }
+    .n1{
+      display: none;
+    }
+    .n2{
+      display:none;
+      left: 120px;
+    }
+    .n3{
+      display:none;
+      left: 200px;
+    }
+    .n4{
+      display: none;
+      left: 270px;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function (){
+      var oDiv = document.getElementById('box');
+      var oUl = document.getElementById('ul');
+      var aLi = oUl.getElementsByTagName('li');
+      var aDiv = oDiv.getElementsByTagName('div');
+      var timer;
+      var that;
+
+      for(var i=0;i<aLi.length;i++){
+        aLi[i].index = i;
+        aLi[i].onmouseover = function (){
+          clearTimeout(timer);
+          for(var i=0;i<aLi.length;i++){
+            aDiv[i].style.display = 'none';
+          }
+          aDiv[this.index].style.display = 'block';
+        };
+        aLi[i].onmouseout = function (){
+          that = this.index;
+          timer = setTimeout(function (){
+            aDiv[that].style.display = 'none';
+          },200);
+        };
+      }
+
+      for(var i=0;i<aDiv.length;i++){
+         aDiv[i].onmouseover = function (){
+          clearTimeout(timer);
+          this.style.display = 'block';
+        };
+        aDiv[i].onmouseout = function (){
+          that = this;
+          timer = setTimeout(function (){
+           that.style.display = 'none';
+          },200);
+        };
+      }
+    };
+  </script>
+</head>
+<body>
+<div id="box">
+    <ul id='ul'>
+      <li><a href="javascript:;">首页</a></li>
+      <li><a href="javascript:;">前端教程</a></li>
+      <li><a href="javascript:;">后端教程</a></li>
+      <li><a href="javascript:;">工具教程</a></li>
+    </ul>
+    <div class="nav n1">
+      <ul>
+        <li><a href="javascript:;">github</a></li>
+        <li><a href="javascript:;">极客学院</a></li>
+        <li><a href="javascript:;">慕课网</a></li>
+        <li><a href="javascript:;">百度前端</a></li>
+      </ul>
+    </div>
+    <div class="nav n2">  
+      <ul>
+        <li><a href="javascript:;">HTML</a></li>
+        <li><a href="javascript:;">CSS</a></li>
+        <li><a href="javascript:;">Javascript</a></li>
+        <li><a href="javascript:;">Ajax</a></li>
+      </ul>
+      </div>
+    <div class="nav n3">    
+      <ul>
+        <li><a href="javascript:;">Java</a></li>
+        <li><a href="javascript:;">PHP</a></li>
+        <li><a href="javascript:;">Python</a></li>
+        <li><a href="javascript:;">C++</a></li>
+      </ul>
+    </div>
+    <div class="nav n4">  
+      <ul>
+        <li><a href="javascript:;">photoshop</a></li>
+        <li><a href="javascript:;">sublime</a></li>
+        <li><a href="javascript:;">webstorm</a></li>
+        <li><a href="javascript:;">notepad++</a></li>
+      </ul>
+    </div>
+</div>
+</body>
+</html>

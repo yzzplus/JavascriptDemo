@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>音乐全选反选</title>
+  <style type="text/css">
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+    li{
+      list-style: none;
+    }
+    ul{
+      margin-top: 50px;
+      margin-left: 100px;
+      width: 300px;
+      border: 1px solid black;
+    }
+    li{
+      width: 300px;
+      background: lightgray;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function(){
+      var aLi = document.getElementsByTagName('li');
+      var aBtn = document.getElementsByTagName('input');
+
+      for(var i=0;i<aLi.length;i++){
+        aBtn[i].index = i;
+        aBtn[i].onclick = function (){
+          if(aBtn[this.index].checked){
+            aLi[this.index].style.backgroundColor = 'yellow';
+          }else{
+            aLi[this.index].style.backgroundColor = '';
+          }
+        };
+      }
+
+      aBtn[5].onclick = function (){
+        for(var i=0;i<aBtn.length;i++){
+          if(aBtn[5].checked == true){
+            aBtn[i].checked = true;
+            aLi[i].style.backgroundColor = 'yellow';
+          }else{
+            aBtn[i].checked = false;
+            aLi[i].style.backgroundColor = '';
+          }
+
+        }
+
+
+      };
+    };
+  </script>
+</head>
+<body>
+  <ul>
+    <li>
+      <input type="checkbox">&nbsp;友情岁月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;陈小春
+    </li>
+    <li>
+      <input type="checkbox">&nbsp;身骑白马&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;徐佳莹
+    </li>
+    <li>
+      <input type="checkbox">&nbsp;生日礼物&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;江涛
+    </li>
+    <li>
+      <input type="checkbox">&nbsp;烦恼歌&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;张学友
+    </li>
+    <li>
+      <input type="checkbox">&nbsp;理想三旬&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;陈鸿宇
+    </li>
+    全选：<input type="checkbox">
+  </ul>
+</body>
+</html>
