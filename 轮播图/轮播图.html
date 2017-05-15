@@ -87,9 +87,55 @@
 			var timer;
 			var num = 0;
 			
+			//页面初始化，自动轮播
+			timer = setInterval(function(){
+				right();
+			},1000);
+			//鼠标移出，开始轮播
+			imgs.onmouseout = function(){
+				timer = setInterval(function(){
+					right();
+				},1000);
+			};
+			//鼠标移入，清除轮播
+			imgs.onmouseover = function(){
+				clearInterval(timer);
+			}
+			prev.onmouseover = function(){
+				clearInterval(timer);
+			}
+			next.onmouseover = function(){
+				clearInterval(timer);
+			}
+			for(var i=0;i<aBtn.length;i++){
+				aBtn[i].onmouseover = function(){
+					clearInterval(timer);
+				};
+			}
 			//上一张、下一张鼠标效果
-			prev.onclick = left;
-			next.onclick = right;
+			prev.onclick = function (){
+				clearInterval(timer);
+				left();
+			};
+			next.onclick = function(){
+				clearInterval(timer);
+				right();
+			};
+
+			//span标签控制图片切换
+			for(var i=0;i<aBtn.length;i++){
+				aBtn[i].index = i;
+				aBtn[i].onclick = function(){
+					clearInterval(timer);
+					oImg.src = arrImg[this.index];
+
+					for(var i=0;i<aBtn.length;i++){
+						aBtn[i].className = '';
+					}
+					this.className = 'on';
+				};
+			}
+
 			//上一张
 			function left(){
 				num--;
@@ -117,20 +163,6 @@
 				aBtn[num].className = 'on';
 			};
 			
-			//页面初始化，自动轮播
-			timer = setInterval(function(){
-				right();
-			},1000);
-			//鼠标移出，开始轮播
-			imgs.onmouseout = function(){
-				timer = setInterval(function(){
-					right();
-				},1000);
-			};
-			//鼠标移入，开始轮播
-			imgs.onmouseover = function(){
-				clearInterval(timer);
-			}
 		};
 	</script>
 </head>
