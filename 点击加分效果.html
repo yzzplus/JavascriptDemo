@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>点击加分效果</title>
+		<style type="text/css">
+			div,ul,li,span{
+				padding: 0px;
+				margin: 0px;
+			}
+			#box ul li{
+				list-style: none;
+			}
+			#box{
+				width:500px;
+				height: 150px;
+				border: 1px solid #666;
+				margin: 50px auto;
+				position: relative;
+			}
+			#box ul{
+				width:500px;
+				height: 40px;
+				top: 110px;
+				position: absolute;
+				left: 0px;
+				cursor: pointer;
+				z-index: 2;
+			}
+			#box ul li{
+				display: inline-block;
+				position: absolute;
+				font-size: 20px;
+				line-height: 40px;
+				top: 0px;
+			}
+			#box div{
+				width: 500px;
+				height: 40px;
+				top: 110px;
+				position: absolute;
+				border: 1px solid #aaa;
+				z-index: 1;
+			}
+			#box div span{
+				width: 0px;
+				height: 40px;
+				display: inline-block;
+				background: green;
+				opacity: 0.7;
+				filter: alpha(opacity=70);
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var oBox = document.getElementById('box');
+				var oUl = oBox.getElementsByTagName('ul')[0];
+				var aLi = oUl.getElementsByTagName('li');
+				var oSpan = oBox.getElementsByTagName('span')[0];
+				var num = 0;
+				var len=10;
+				var onOff=true;
+				//向页面添加元素
+				for(var i=0;i<len;i++){
+					oUl.innerHTML += '<li>+10</li>';
+					aLi[i].style.left = 5+i*50+'px';
+				}
+				//初始化函数
+				function fn(){
+					oSpan.style.width = '0px';
+					oSpan.style.opacity = 0.7;
+					oSpan.style.filter = 'alpha(opacity=70)';
+					for(var i=0;i<len;i++){
+						aLi[i].style.top='0px';
+						aLi[i].style.opacity = 1;
+						aLi[i].style.filter = 'alpha(opacity=1)';
+					}
+					onOff=true;
+				}
+				fn();
+				//获取元素属性
+				function getStyle(obj,attr){
+					return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+				}
+				//构建移动函数
+				function doMove(obj,attr,dir,target,endFn){
+					dir = parseInt(getStyle(obj,attr))>target?-dir:dir;
+					clearInterval(obj.timer);
+					obj.timer = setInterval(function(){
+						var speed = parseInt(getStyle(obj,attr))+dir;
+						if(speed<target && dir<0 || speed>target && dir>0){
+							speed = target;
+						}
+						obj.style[attr] = speed+'px';
+						if(speed==target){
+							clearInterval(obj.timer);
+							endFn && endFn();
+						}
+					},50);
+				}
+				//构建透明函数
+				function opacity(obj,dir,target,endFn){
+					dir = parseFloat(getStyle(obj,'opacity'))>target?-dir:dir;
+					clearInterval(obj.timers);
+					obj.timers = setInterval(function(){
+						var speed = parseFloat(getStyle(obj,'opacity'))+dir;
+						if(speed>target && dir>0 || speed<target && dir<0){
+							speed = target;
+						}
+						obj.style.opacity = speed;
+						obj.style.filter = 'alpha(opacity = '+i*100+')';
+						if(speed == target){
+							clearInterval(obj.timers);
+							endFn && endFn();
+						}
+					},50);
+				}
+				//点击执行函数
+				oUl.onclick = function(){
+					if(onOff){
+						onOff=false;
+						clearInterval(oUl.timer);
+						oUl.timer = setInterval(function(){
+							doMove(aLi[num],'top',5,-110);
+							opacity(aLi[num],0.05,0);
+							doMove(oSpan,'width',20,500,function(){
+								opacity(oSpan,0.05,0,function(){
+									fn();
+								});
+							});
+							num++;
+							if(num===len){
+								clearInterval(oUl.timer);
+								num=0;
+							}
+						},100);
+					}
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="box">
+			<ul>
+			</ul>
+			<div>
+				<span></span>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:270px;
+            height:300px;
+            background: #F1F1F1;
+            clear: both;
+            overflow-y: scroll;
+        }
+        .yzz_box{
+            float: right;
+            display: inline-block;
+        }
+        .yzz{
+            margin-right: 0px;
+            display: inline-block;
+        }
+        .ymsg{
+            color: #FFFFFF;
+            background-color: green;
+            border-radius: 15%;
+            display: inline-block;
+            margin-right: 0px;
+        }
+        .jcm{
+            float: left;
+        }
+        .jmsg{
+            color: #000000;
+            background-color: #FFFFFF;
+            border-radius: 15%;
+            display: inline-block;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var box = document.getElementById("box");
+            var span = document.getElementById("span");
+            var text = document.getElementById("text");
+            var btn = document.getElementById("btn");
+            var onOff=true;
+            function change(){
+                span.innerHTML="Yzz";
+            }
+            change();
+            span.onclick=function () {
+                if(onOff){
+                    span.innerHTML="Jcm";
+                }else{
+                    span.innerHTML="Yzz";
+                }
+                onOff=!onOff;
+            };
+            btn.onclick=function(){
+                if(onOff){
+                	if(text.value==""){
+                		alert('请输入内容！');
+                	}else{
+                    	box.innerHTML += '<div class="yzz_box">'+'<div class="ymsg">'+text.value+'</div>'+"&nbsp;"+'<div class="yzz">'+span.innerHTML+'</div>'+'</div>'+'<br/>';              		
+                	}
+                }else{
+                	if(text.value==""){
+                		alert('请输入内容！');
+                	}else{
+                    	box.innerHTML += '<div class="jcm">'+span.innerHTML+'</div>'+"&nbsp;"+'<div class="jmsg">'+text.value+'</div>'+'<br/>';     		
+                	}
+                }
+                text.value='';
+            };
+        };
+    </script>
+</head>
+<body>
+    <div id="box"></div>
+    <span id="span">name</span>
+    <input id="text" type="text">
+    <button id="btn">发送</button>
+</body>
+</html>

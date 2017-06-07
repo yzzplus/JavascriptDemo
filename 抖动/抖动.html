@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>图片抖动</title>
+		<style>
+			img{
+				position: absolute;
+				top: 150px;
+				left: 150px;
+				width: 200px;
+				height: 150px;
+			}
+			#pic{
+				left: 600px;
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function(){
+				var img = document.getElementById('img');
+				var pic =document.getElementById('pic')
+				
+				img.onclick = objshake;
+				pic.onclick = objshake;
+				
+				function objshake(obj){
+					var that = this;
+					shake(that,'left',function(){
+						shake(that,'top');
+					});
+				}
+
+				function shake(obj,attr,fn){
+					var arr = [];
+					var num = 0;
+					for(var i=20;i>0;i-=2){
+						arr.push(i,-i);
+					}
+					arr.push(0);
+					
+					clearInterval(obj.timer);
+					
+					obj.timer = setInterval(function(){
+						var pos = parseInt(getStyle(obj,attr));
+						obj.style[attr] = pos+arr[num] + 'px';
+						num++;
+						if(num==arr.length){
+							clearInterval(obj.timer);
+							fn && fn();
+						}
+					},50)
+				}
+				
+				function getStyle(obj,attr){
+					return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj)[attr];
+				}
+				
+			}
+		</script>
+	</head>
+	<body>
+		<img id="img" src="img/1.jpg">
+		<img id="pic" src="img/2.jpg">
+	</body>
+</html>

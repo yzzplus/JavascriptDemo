@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>时间</title>
+		<script type="text/javascript">
+			window.onload = function(){
+				setInterval(time,1000);
+				
+				function time(){
+					var myDate = new Date();
+					var h = myDate.getHours();
+					var mi = myDate.getMinutes();
+					var s = myDate.getSeconds();
+					var p = document.getElementById('p');
+					var aImg = document.getElementsByTagName('img');
+					var str = two(h)+two(mi)+two(s);
+					p.innerHTML = str;
+					function two(obj){
+						return  obj<10?'0'+obj:''+obj;
+					}
+					for(var i=0;i<str.length;i++){
+						aImg[i].src = 'image/'+str.charAt(i)+'.jpg';
+					}
+				}
+				time();
+			}
+		</script>
+	</head>
+	<body>
+		<p id="p"></p>
+			<img src="image/0.jpg">
+			<img src="image/0.JPG">
+			<img src="image/0.JPG">
+			<img src="image/0.JPG">
+			<img src="image/0.JPG">
+			<img src="image/0.JPG">
+	</body>
+</html>
