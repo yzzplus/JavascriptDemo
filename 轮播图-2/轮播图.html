@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>轮播图</title>
+		<style>
+			body,div{
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				border: 0;
+			}
+			a{
+				text-decoration: none;
+			}
+			
+			#container{
+				width: 600px;
+				height: 400px;
+				margin: 100px auto;
+				position: relative;
+				border: 3px solid #ccc;
+				overflow: hidden;
+			}
+			#carousel{
+				width: 4200px;
+				height: 400px;
+				position: absolute;
+				z-index: 1;
+			}
+			#carousel img{
+				width: 600px;
+				height: 400px;
+				float: left;
+			}
+			#btns{
+				position: absolute;
+				z-index: 2;
+				left: 250px;
+				bottom: 10px;
+				width: 100px;
+				height: 10px;
+			}
+			#btns span{
+				float: left;
+				width: 10px;
+				height: 10px;
+				border: 1px solid #fff;
+				border-radius: 50%;
+				background: #333;
+				cursor: pointer;
+				margin-right: 5px;
+			}
+			#btns .active{
+				background: red;
+			}
+			.arrow{
+				position: absolute;
+				width: 40px;
+				height: 40px;
+				top: 180px;
+				font-size: 36px;
+				line-height: 36px;
+				text-align: center;
+				color: #fff;
+				background: gray;
+				cursor: pointer;
+				z-index: 2;
+				display: none;
+				opacity: 0.5;
+				filter: alpha(opacity=50);
+			}
+			.arrow:hover{
+				opacity: 0.7;
+				filter: alpha(opacity=70);
+			}
+			#container:hover .arrow{
+				display: block;
+			}
+			#prev{
+				left: 20px;
+			}
+			#next{
+				right: 20px;
+			}
+		</style>
+		<script>
+			window.onload = function(){
+				var container = document.getElementById('container');
+				var carousel = document.getElementById('carousel');
+				var prev = document.getElementById('prev');
+				var next = document.getElementById('next');
+				var buttons = document.getElementById('btns').getElementsByTagName('span');
+				var index = 1;
+				var timer;
+				
+				function animate(distance){
+					var newLeft = parseInt(carousel.style.left) + distance;
+					carousel.style.left = newLeft + 'px';
+					if(newLeft>-600){
+						carousel.style.left = '-3000px';
+					}else if(newLeft<-3000){
+						carousel.style.left = '-600px';
+					}
+				}
+				
+				function buttonShow(){
+					for(var i=0;i<buttons.length;i++){
+						if(buttons[i].className == 'active'){
+							buttons[i].className = '';
+						}
+					}
+					buttons[index - 1].className = 'active';
+				}
+				
+				function play(){
+					timer = setInterval(function(){
+						next.onclick();
+					},1000);
+				}
+				
+				function stop(){
+					clearInterval(timer);
+				}
+				
+				for(var i=0;i<buttons.length;i++){
+					(function (i){
+						buttons[i].onclick = function(){
+							var clickIndex = parseInt(this.getAttribute('index'));
+							var distance = 600*(index - clickIndex);
+							animate(distance);
+							index = clickIndex;
+							buttonShow();
+						}
+					})(i)
+				}
+				
+				next.onclick = function(){
+					index += 1;
+					if(index > 5){
+						index = 1;
+					}
+					buttonShow();
+					animate(-600);
+				}
+				
+				prev.onclick = function(){
+					index -= 1;
+					if(index < 1){
+						index = 5;
+					}
+					buttonShow();
+					animate(600);
+				}
+				
+				container.onmouseover = stop;
+				
+				container.onmouseout = play;
+				
+				play();
+				
+			}
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="carousel" style="left:-600px">
+				<img src="images/1.jpg"/>
+				<img src="images/1.jpg"/>
+				<img src="images/2.jpg"/>
+				<img src="images/3.jpg"/>
+				<img src="images/4.jpg"/>
+				<img src="images/5.jpg"/>
+				<img src="images/5.jpg"/>
+			</div>
+			<div id="btns">
+				<span index="1" class="active"></span>
+				<span index="2"></span>
+				<span index="3"></span>
+				<span index="4"></span>
+				<span index="5"></span>
+			</div>
+			<button id="prev" class="arrow">&lt;</button>
+			<button id="next" class="arrow">&gt;</button>
+		</div>
+	</body>
+</html>
